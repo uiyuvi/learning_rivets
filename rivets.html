@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="description" content="Rivets Exercises" />
+  <script src="js/jquery.js"></script>
+  <script src="js/rivets.js"></script>
+  <meta charset=utf-8 />
+  <title>Rivets Exercises</title>
+  <style>
+    div {
+      margin: 40px 0 0 0;
+    }
+
+    div span {
+      color: blue;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <pre>
+    /**
+    *    Rivets.js exercises
+    */
+    
+    // ******************************************
+    // Exercise 1
+    //
+    // - Create a variable called 'context'.
+    // - Assign a JavaScript object that has a
+    //   property 'spacecraft' with value 
+    //   'Pioneer' to 'context'.
+    // - Use rivets to bind this object as 
+    //   context to the div with id: 'exercise1'
+    // - Verify that the spacecraft variable has
+    //   been replaced with 'Pioneer' in the 
+    //   output.
+    // ******************************************
+    
+    // ******************************************
+    // Exercise 2
+    //
+    // - Change the value of 'spacecraft' in 
+    //   the context variable to something else.
+    // - Verify that the output is also changed.
+    // ******************************************
+    
+    // ******************************************
+    // Exercise 3
+    //
+    // - You are given the code below.
+    // - Create an input field in the DIV with id
+    //   'exercise3' (in the HTML).
+    // - Bind the input field to the 'spacecraft'
+    //   property
+    // - Verify that when the input changes (after
+    //   you click outside of it to trigger a 
+    //   'blur'), the text also changes.
+    // ******************************************
+    
+    
+    // ******************************************
+    // Exercise 4
+    //
+    // - You are given the code below.
+    // - Modify the DIV with id 'exercise4'
+    //   to print a row in the table for each
+    //   mission.
+    // ******************************************
+    
+    
+    // ******************************************
+    // Exercise 5
+    //
+    // - You are given the code below.
+    // - Create a formatter called 'date' to 
+    //   convert milliseconds since epoch to a
+    //   UTC date string. 
+    // - Create this formatter BEFORE the code
+    //   below.
+    // - Modify the DIV with id 'exercise5' to
+    //   print a row in the table for each 
+    //   mission.
+    // - Use your formatter on the DATE values
+    //   to automatically convert the DATE millis
+    //   to a UTC date string. 
+    // ******************************************
+  </pre>
+  <div id="exercise1">
+    <h3>{spacecraft}</h3>
+    Beginning in 1973, several spacecraft have performed planetary flyby maneuvers that brought them within observation
+    range of Jupiter. The '{spacecraft}' missions obtained the first close-up ...
+  </div>
+
+  <div id="exercise3">
+    <h3>{spacecraft}</h3>
+    Six years later, the '{spacecraft}' missions vastly improved the understanding of the Galilean moons and discovered
+    Jupiter's rings.
+    <!-- EXERCISE 3 SOLUTION START -->
+    <input rv-value="spacecraft">
+    <!-- EXERCISE 3 SOLUTION END -->
+  </div>
+
+  <div id="exercise4">
+    <table>
+      <tr>
+        <th>Spacecraft</th>
+        <th>Date</th>
+        <th>Distance</th>
+      </tr>
+      <!-- EXERCISE 4 SOLUTION START -->
+      <tr rv-each-mission="missions">
+        <td>{mission.spacecraft}</td>
+        <td>{mission.date}</td>
+        <td rv-text="mission.distance"></td>
+      </tr>
+      <!-- EXERCISE 4 SOLUTION END -->
+    </table>
+  </div>
+
+  <div id="exercise5">
+    <table>
+      <tr>
+        <th>Spacecraft</th>
+        <th>Date</th>
+        <th>Distance</th>
+      </tr>
+      <!-- EXERCISE 5 SOLUTION START -->
+      <tr rv-each-mission="missions">
+        <td>{mission.spacecraft}</td>
+        <td>{mission.date | date}</td>
+        <td rv-text="mission.distance"></td>
+      </tr>
+      <!-- EXERCISE 5 SOLUTION END -->
+    </table>
+  </div>
+
+
+  <script type="text/javascript">
+
+    /**
+    *    Rivets.js exercises
+    */
+
+    // ******************************************
+    // Exercise 1
+    //
+    // - Create a variable called 'context'.
+    // - Assign a JavaScript object that has a
+    //   property 'spacecraft' with value 
+    //   'Pioneer' to 'context'.
+    // - Use rivets to bind this object as 
+    //   context to the div with id: 'exercise1'
+    // - Verify that the spacecraft variable has
+    //   been replaced with 'Pioneer' in the 
+    //   output.
+    // ******************************************
+    var context = {
+      spacecraft: 'Pioneer'
+    };
+    rivets.bind($('#exercise1'), context);
+
+    // ******************************************
+    // Exercise 2
+    //
+    // - Change the value of 'spacecraft' in 
+    //   the context variable to something else.
+    // - Verify that the output is also changed.
+    // ******************************************
+    context.spacecraft = 'New Horizons';
+
+    // ******************************************
+    // Exercise 3
+    //
+    // - You are given the code below.
+    // - Create an input field in the DIV with id
+    //   'exercise3' (in the HTML).
+    // - Bind the input field to the 'spacecraft'
+    //   property
+    // - Verify that when the input changes (after
+    //   you click outside of it to trigger a 
+    //   'blur'), the text also changes.
+    // ******************************************
+    var context3 = {
+      spacecraft: 'Voyager'
+    };
+    rivets.bind($('#exercise3'), context3);
+
+
+    // ******************************************
+    // Exercise 4
+    //
+    // - You are given the code below.
+    // - Modify the DIV with id 'exercise4'
+    //   to print a row in the table for each
+    //   mission.
+    // ******************************************
+    var missions = [
+      {
+        spacecraft: 'Pioneer 10',
+        date: 123721200000,
+        distance: '130,000 km'
+      },
+      {
+        spacecraft: 'Pioneer 11',
+        date: 155343600000,
+        distance: '34,000 km'
+      }
+    ];
+    rivets.bind($('#exercise4'), {
+      missions: missions
+    });
+
+
+    // ******************************************
+    // Exercise 5
+    //
+    // - You are given the code below.
+    // - Create a formatter called 'date' to 
+    //   convert milliseconds since epoch to a
+    //   UTC date string. 
+    // - Create this formatter BEFORE the code
+    //   below.
+    // - Modify the DIV with id 'exercise5' to
+    //   print a row in the table for each 
+    //   mission.
+    // - Use your formatter on the DATE values
+    //   to automatically convert the DATE millis
+    //   to a UTC date string. 
+    // ******************************************
+    rivets.formatters.date = function (value) {
+      var date = new Date();
+      date.setTime(value);
+      return date.toUTCString();
+    };
+
+    rivets.bind($('#exercise5'), {
+      missions: missions
+    });
+
+
+
+
+  </script>
+</body>
+
+</html>
